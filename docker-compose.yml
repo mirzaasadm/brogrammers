@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - '3306:3306'
+    environment:
+       MYSQL_DATABASE: 'my-app-db'
+       MYSQL_USER: 'asad'
+       MYSQL_PASSWORD: 'asad'
+       MYSQL_ROOT_PASSWORD: 'asad'
+       MYSQL_HOST: '127.0.0.1'
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+      - /tmp/app/mysqld:/run/mysqld
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+	Brogrammers
+  </title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  {% load static %}
+  <link rel="stylesheet" href="{% static '/document/document.css' %}">
+
+  <div class="row">
+  <div class="header">
+	
+	<div class ="column">
+	  <h1>Brogrammers</h1>
+	</div>
+
+	<div class ="column">
+	  <button onclick="DownloadFile()">Download</button>
+	  <button onclick="CopyURL()">Copy shareable URL</button>
+	</div>	
+	
+	<div class= "column">
+	  <select name="language" id="language">
+        <option value="Plain-text">Plain-text</option>
+		<option value="Java">Java</option>
+        <option value="Python">Python</option>
+        <option value="C++">C++</option>
+        <option value="YAML">YAML</option>
+      </select>
+	</div>
+  </div>
+
+  </div>
+</head>
+
+<body>
+	<form id="post-form" action="document "method="POST">
+    {% csrf_token %}
+	<div class="row">	
+	    <div class="col-15">
+		  <label for="documentid">Document ID </label>
+          <textarea id="documentid" name="documentid" rows="1" readonly>{{idofdoc}}</textarea><br></br><br></br>
+		
+		  <label for="colab">Collaborators </label>
+          <textarea id="colab" name="colab" rows="8" placeholder=Collaborators readonly>{{user}}</textarea><br></br><br></br>
+		  
+        </div>
+      	  
+	    <div class="col-50">
+		  <textarea id="filename" name="filename" rows="1" cols="40" placeholder="Filename">{{filename}}</textarea>
+		  <textarea id="content" name="content" rows="25" cols="40" placeholder="Write your code here.." onkeyup="contentupdate(this);">{{content}}</textarea>
+		  <p id="pname" onload="UserNameInput()"></p>
+		</div>
+    </div>
+	
+	</form>
+	
+</body>
+
+<script type="text/javascript">
+
+	$("#filename").on('live', function(event) {
+	event.preventDefault();
+	
+	$.ajax({
+		type : 'POST',
+		url : '/editfilename',
+		data : {
+			documentid: $('#documentid').val(),
+			filename: $('#filename').val(),
+			csrfmiddlewaretoken:$('#input[name=csrfmiddlewaretoken]').val(),
+		},
+		success: function(data){
+			$("#filename").val(data)
+		},
+	});
+});
+
+	
+function refresh() {
+	var cursor_pos = $("#content").prop('selectionStart');
+    $.ajax({
+		type: 'POST',
+        url: '/refreshdata',
+		data : {
+			documentid: $('#documentid').val(),
+			content: $('#content').val(),
+			filename: $('#filename').val(),
+			csrfmiddlewaretoken:$('#input[name=csrfmiddlewaretoken]').val(),
+		},
+        success: function(data) {
+			$('#content').val(data)
+        }
+    });
+};
+
+
+function contentupdate(element) {
+  $.ajax({
+		type : 'POST',
+		url : '/editcontent',
+		data : {
+			documentid: $('#documentid').val(),
+			content: $('#content').val(),
+			csrfmiddlewaretoken:$('#input[name=csrfmiddlewaretoken]').val(),
+		},
+		success: function(){
+		},
+	});
+	console.log("calling wordbyword");
+};
+
+
+
+$(function(){
+	setInterval(refresh, 1500);
+});
+
+function CopyURL(text) {
+	var inputc = document.body.appendChild(document.createElement("input"));
+	inputc.value = window.location.href;
+	inputc.focus();
+	inputc.select();
+	document.execCommand('copy');
+	inputc.parentNode.removeChild(inputc);
+	alert("Shareable URL Copied.");
+}
+
+
+function DownloadFile(text) {
+	$.ajax({
+		type : 'POST',
+		url : '/download',
+		data : {
+			documentid: $('#documentid').val(),
+			filename: $('#filename').val(),
+			content: $('#content').val(),
+			csrfmiddlewaretoken:$('#input[name=csrfmiddlewaretoken]').val(),
+		},
+		success: function(data){
+		},
+	});
+}
+</script>
+
+</html>

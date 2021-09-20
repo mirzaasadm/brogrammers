@@ -1,0 +1,5 @@
+Django==2.2
+mysqlclient==1.3.13
+django-mysql==2.2.0
+requests==2.7.0
+three-merge==0.1.1

@@ -1,0 +1,74 @@
+/* Style inputs, select elements and textareas */
+input[type=text], select, textarea{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+/* Style the label to display next to the inputs */
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+/* Style the submit button */
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  margin-top: 280px;
+}
+
+/* Style the container */
+.container {
+  border-radius: 5px;
+  background-color: white;
+  padding: 20px;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+}
+
+
+/* Floating column for labels: 20% width */
+.col-15 {
+  float: right;
+  width: 15%;
+  margin-top: 30px;
+  margin-right: 50px;
+}
+
+/* Floating column for inputs: 50% width */
+.col-50 {
+  float: left;
+  width: auto;
+  height: 400px;
+  margin-top: 30px;
+  margin-left: 50px;
+}
+
+.header {
+  padding: 50px;
+  text-align: left-side;
+  background: #1abc9c;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-15, .col-50, .header, .column, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}

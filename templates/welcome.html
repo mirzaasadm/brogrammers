@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+	Brogrammers
+  </title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static '/welcome/welcome.css' %}">
+</head>
+
+<body>
+	<form action="document/{{nextpageurl}}" method="post">
+    {% csrf_token %}
+	<div class="row">
+      
+	    <div class="col-15">
+          <label for="uname">Please Enter Your Name  : </label>
+        </div>
+      
+	    <div class="col-50">
+          <input type="text" id="uname" name="username" placeholder="Name of File">
+        </div>
+    
+	    <a href="{% url 'documentpage' 1 %}" >
+          <input type="submit" value="Submit">
+        </a>
+
+      </div>
+	</form>
+	
+</body>
+
+</html>
