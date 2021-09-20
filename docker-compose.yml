@@ -14,11 +14,11 @@ services:
 
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:9000
     volumes:
       - .:/app
       - /tmp/app/mysqld:/run/mysqld
     ports:
-      - "8000:8000"
+      - "9000:9000"
     depends_on:
       - db
