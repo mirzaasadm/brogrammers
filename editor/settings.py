@@ -25,7 +25,7 @@ SECRET_KEY = '=r9+9vtb8mi1+6sjkjg1^-6(lqhvkhu-gpb$&vqs1xv^bx0j%%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["PAK-MASAD-D", "172.17.148.209","brogrammers.leasing-sandbox.net"]
+ALLOWED_HOSTS = ["localhost","0.0.0.0","PAK-MASAD-D", "172.17.148.209","brogrammers.leasing-sandbox.net"]
 
 
 # Application definition
