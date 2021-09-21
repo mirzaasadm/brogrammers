@@ -11,6 +11,8 @@ services:
        MYSQL_PASSWORD: 'asad'
        MYSQL_ROOT_PASSWORD: 'asad'
        MYSQL_HOST: '127.0.0.1'
+    networks:
+      - mysql_network
 
   web:
     build: .
@@ -22,3 +24,9 @@ services:
       - "9000:9000"
     depends_on:
       - db
+    networks:
+      - mysql_network
+
+  networks:
+    mysql_network:
+      name: mysql_network
