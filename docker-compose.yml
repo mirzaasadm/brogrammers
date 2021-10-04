@@ -23,9 +23,33 @@ services:
     ports:
       - "9000:9000"
     depends_on:
+      - make_migrations
+      - migration
       - db
     networks:
       - mysql_network
+
+  make_migrations:
+    build: .
+    command: python manage.py makemigrations
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    networks:
+      - mysql_network
+
+  migration:
+    build: .
+    command: python manage.py migrate welcomepage
+    volumes:
+      - .:/app
+    depends_on:
+      - make_migrations
+      - db
+    networks:
+      - mysql_network
+
 
 networks:
   mysql_network:
